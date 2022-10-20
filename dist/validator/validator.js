@@ -12,21 +12,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.validate = void 0;
 const enums_1 = require("../common/enums");
 const file_exception_1 = require("../exceptions/file.exception");
-const utils_1 = require("../common/utils");
 const encDetector = require("detect-character-encoding");
-const json_validator_1 = require("./json.validator");
-const csv_validator_1 = require("./csv.validator");
 exports.validate = (file, type) => __awaiter(void 0, void 0, void 0, function* () {
     if (file) {
         const { buffer, mimetype } = file;
         validateFileEncoding(buffer);
         validateContentType(mimetype);
-        if (utils_1.isJsonContentType(mimetype)) {
-            return yield json_validator_1.validateJsonFileBuffer(buffer, type);
-        }
-        else {
-            return yield csv_validator_1.validateCsvFileBuffer(buffer, type);
-        }
     }
     else {
         throw new file_exception_1.NoFileException(enums_1.ERROR_MESSAGE.NO_FILE_ERROR);

@@ -34,7 +34,7 @@ export function GCloudStorageFileInterceptor(
       const type = request.body?.type;
 
       // validate
-      const shape = await validate(file, type);
+      await validate(file, type);
 
       // path initialize
       let path = null;
@@ -56,7 +56,7 @@ export function GCloudStorageFileInterceptor(
       const storageUrl = await this.gcloudStorage.upload(file, gcloudStorageOptions, path);
       file.storageUrl = storageUrl;
       // NOTE validate 이후에 count된 row개수를 여기에 추가한다.
-      file.shape = shape;
+      // file.shape = shape;
       return next.handle();
     }
   }
